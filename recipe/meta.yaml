@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/csvs_to_sqlite-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/csvs_to_sqlite-{{ version }}.tar.gz
   sha256: 638623ff5462e60123da07860a096f9cff0d7aa8f036e68cc98001e006adea59
 
 build:
@@ -14,18 +14,18 @@ build:
     - csvs-to-sqlite = csvs_to_sqlite.cli:cli
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - click >=7.0, <8.0
     - dateparser >=1.0
     - pandas >=1.0
     - py_lru_cache >=0.1.4
-    - python >=3.6
+    - python >={{ python_min }}
     - six
 
 test:
@@ -36,6 +36,7 @@ test:
     - csvs-to-sqlite --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/simonw/csvs-to-sqlite
